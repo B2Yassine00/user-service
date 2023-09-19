@@ -1,0 +1,21 @@
+postgres:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users
+    username: "yassine"
+    password: "password"
+    driver-class-name: org.postgresql.Driver
+
+mysql:
+  datasource:
+    url: jdbc:mysql://localhost:3306/users
+    username: "root"
+    password: "password"
+    drive-class-name: com.mysql.cj.jdbc.Driver
+
+application:
+  security:
+    jwt:
+      secret-key: 743677397A244326452948404D635166546A576E5A7234753778214125442A47
+
+server:
+  port: 8090
