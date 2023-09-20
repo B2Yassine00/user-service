@@ -15,7 +15,26 @@ public class UserController {
     private UserService service;
     @PostMapping("/addUser")
     public ResponseEntity<UserDetails> addUser(@RequestBody UserDetailsDTO userDetailsDTO){
-
         return ResponseEntity.ok(service.saveUser(userDetailsDTO));
+    }
+
+    @PutMapping("/updateUser")
+    public ResponseEntity<UserDetails> updateUser(@RequestBody UserDetails userDetails){
+        return ResponseEntity.ok(service.updateUser(userDetails));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Integer id){
+        return service.deleteUser(id);
+    }
+
+    @GetMapping("/user/{id}")
+    public UserDetails getUserById(@PathVariable Integer id){
+        return service.getUserById(id);
+    }
+
+    @GetMapping("/user/{lastname}")
+    public UserDetails getUserByLastName(@PathVariable String name){
+        return service.getUserByName(name);
     }
 }

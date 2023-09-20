@@ -26,4 +26,29 @@ public class UserService {
                 .credentials_id(userDetailsDTO.getCredentials_id()).build();
         return repository.save(user);
     }
+
+    public UserDetails updateUser(UserDetails userDetails){
+        UserDetails user = repository.findById(userDetails.getId()).orElse(null);
+        assert user != null;
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
+        user.setGender(userDetails.getGender());
+        user.setEmail(userDetails.getEmail());
+        user.setHeight(userDetails.getHeight());
+        user.setWeight(user.getWeight());
+        return repository.save(user);
+    }
+
+    public String deleteUser(Integer id){
+        repository.deleteById(id);
+        return "user removed"+id;
+    }
+
+    public UserDetails getUserById(Integer id){
+        return repository.findById(id).orElse(null);
+    }
+
+    public UserDetails getUserByName(String name){
+        return repository.findByLastName(name).orElse(null);
+    }
 }
