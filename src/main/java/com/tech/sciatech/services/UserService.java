@@ -3,9 +3,13 @@ package com.tech.sciatech.services;
 import com.tech.sciatech.DTO.UserDetailsDTO;
 import com.tech.sciatech.mysqlentities.UserDetails;
 import com.tech.sciatech.mysqlrepositories.UserDetailsRepository;
+import com.tech.sciatech.postgresentities.User;
+import com.tech.sciatech.postgresrepositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +17,8 @@ public class UserService {
 
     @Autowired
     private UserDetailsRepository repository;
+    @Autowired
+    private UserRepository userRepository;
 
     public UserDetails saveUser(UserDetailsDTO userDetailsDTO){
         UserDetails user = UserDetails.builder()
@@ -40,6 +46,9 @@ public class UserService {
     }
 
     public String deleteUser(Integer id){
+        Optional<UserDetails> user = repository.findById(id);
+        Optional<User> usercred = userRepository.findById(user.get().getCredentials_id());
+        userRepository.delete(usercred.get());
         repository.deleteById(id);
         return "user removed"+id;
     }
